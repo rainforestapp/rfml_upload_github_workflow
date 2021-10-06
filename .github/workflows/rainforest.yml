@@ -1,0 +1,16 @@
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'spec/rainforest/**.rfml'
+jobs:
+  upload-rainforest-tests:
+    runs-on: ubuntu-latest
+    container:
+      image: docker://gcr.io/rf-public-images/rainforest-cli:latest
+    steps:
+      - uses: actions/checkout@v2
+      # requires RAINFOREST_API_TOKEN through an environment variable
+      - name: Upload RFML Rainforest tests
+        run: rainforest upload
